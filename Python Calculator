@@ -1,0 +1,74 @@
+from tkinter import *
+
+
+def clicked():
+    solution = int(number1.get())
+    operation = op_list[selected.get()]
+    if operation == "+":
+        solution += int(number2.get())
+    elif operation == "-":
+        solution -= int(number2.get())
+    elif operation == "*":
+        solution *= int(number2.get())
+    else:
+        if number2.get() == "0":
+            solution = "Not possible"
+        else:
+            solution /= int(number2.get())
+    output2.set(solution)
+
+
+def click():
+    operation = op_list[selected.get()]
+    output1.set(operation)
+
+
+window = Tk()
+window.geometry("420x400")
+window.title("Calculator")
+
+row_counter = 0
+
+lbl0 = Label(window, text="Calculator", font=("Arial Bold", 20))
+lbl0.grid(column=0, row=row_counter, sticky="W")
+row_counter += 1
+
+selected = IntVar()
+selected.set(0)
+
+
+output1 = StringVar()
+
+
+op_list = ["+", "-", "*", "/"]
+for i in range(len(op_list)):
+    rad = Radiobutton(window, text=op_list[i], value=i, variable=selected, command=click)
+    rad.grid(column=0, row=row_counter, sticky="W")
+    row_counter += 1
+
+number1 = Entry(window, width=15)
+number1.grid(column=0, row=row_counter)
+
+
+operation = Entry(window, width=1, state="readonly", textvariable=output1)
+operation.grid(column=1, row=row_counter)
+
+number2 = Entry(window, width=15)
+number2.grid(column=2, row=row_counter)
+
+equals = Label(window, text="=")
+equals.grid(column=3, row=row_counter)
+
+output2 = StringVar()
+
+result = Entry(window, width=22, state="readonly", textvariable=output2)
+result.grid(column=4, row=row_counter)
+
+row_counter += 1
+
+btn = Button(window, text="Calculate", command=clicked)
+btn.grid(column=0, row=row_counter)
+
+click()
+
+window.mainloop()
